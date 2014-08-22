@@ -38,16 +38,18 @@
 
         // delegate to native Array.isArray
         isArray: Array.isArray || function (obj) {
-            return toString.call(obj) === '[object Array]';
+            return self.toString.call(obj) === '[object Array]';
         },
 
-        slice: Array.slice,
+        slice: Array.prototype.slice,
 
         // object functions
 
+        toString: Object.prototype.toString,
+
         // extend a given object's properties with object(s)
         extend: function (obj) {
-            var src, copy, options, clone, i = 1;
+            var src, copy, options, clone, name, i = 1;
             var target = arguments[0] || {};
             var length = arguments.length;
 
@@ -59,23 +61,25 @@
                 options = arguments[i] || {};
 
                 for (name in options) {
-                    src = target[name];
-                    copy = options[name];
+                    if (options.hasOwnProperty(name)) {
+                        src = target[name];
+                        copy = options[name];
 
-                    // protect against obvious recusion
-                    if (target === copy) continue;
+                        // protect against obvious recursion
+                        if (target === copy) continue;
 
-                    // deep copy if object is encountered
-                    if (copy && this.isObject(copy)) {
-                        // extend the clone instead of original object
-                        clone = src && this.isObject(src) ? src : {};
+                        // deep copy if object is encountered
+                        if (copy && this.isObject(copy)) {
+                            // extend the clone instead of original object
+                            clone = src && this.isObject(src) ? src : {};
 
-                        target[name] = this.extend(clone, copy);
-                    }
+                            target[name] = this.extend(clone, copy);
+                        }
 
-                    // do not copy undefined values
-                    else if (!this.isUndefined(copy)) {
-                        target[name] = copy;
+                        // do not copy undefined values
+                        else if (!this.isUndefined(copy)) {
+                            target[name] = copy;
+                        }
                     }
                 }
             }
@@ -86,7 +90,7 @@
         // merge two or more objects without altering
         merge: function (obj) {
             var args = [{}];
-            args.push.apply(args, this.slice(arguments));
+            args.push.apply(args, this.slice.call(arguments));
 
             return this.extend.apply(this, args);
         },
@@ -105,7 +109,9 @@
                 }
             } else {
                 for (i in obj) {
-                    callback.call(obj[i], i, obj[i]);
+                    if (obj.hasOwnProperty(i)) {
+                        callback.call(obj[i], i, obj[i]);
+                    }
                 }
             }
 
@@ -118,10 +124,10 @@
             return this.isString(value) ? value.trim() : value;
         },
         log: function (value) {
-            console.log(this.slice(arguments));
+            console.log(this.slice.call(arguments));
         }
     };
 
     // expose library to global scope
-    window.hm = new hm;
+    window.hm = new hm();
 }(window));

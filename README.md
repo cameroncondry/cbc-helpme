@@ -49,7 +49,7 @@ hm.trim('value');
 hm.log(obj);
 ```
 
-## Comparitors
+## Comparators
 
 ```js
 hm.isUndefined(obj);
