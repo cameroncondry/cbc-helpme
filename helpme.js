@@ -11,7 +11,7 @@
     var hm = function () {};
 
     hm.prototype = {
-        // comparisons
+        // comparators
         isUndefined: function (obj) {
             return obj === void 0;
         },
@@ -123,5 +123,5 @@
     };
 
     // expose library to global scope
-    window.hm = new hm();
+    window.hm = new hm;
 }(window));

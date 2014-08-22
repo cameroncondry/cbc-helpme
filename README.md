@@ -17,7 +17,7 @@ Add the project to your composer file:
 }
 ```
 
-## Functions
+## Methods
 
 ### Extend
 
