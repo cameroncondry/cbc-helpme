@@ -4,6 +4,19 @@
 
 Help Me is a lightweight library that provides common functionality for any JavaScript application.
 
+## Installation
+
+Add the project to your composer file:
+
+***composer.json***
+```
+{
+    "require": {
+        "cameroncondry/helpme": "1.0.*"
+    }
+}
+```
+
 ## Functions
 
 ### Extend
