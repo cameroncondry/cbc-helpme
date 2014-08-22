@@ -1,0 +1,12 @@
+{
+    "name": "cameroncondry/helpme",
+    "type": "library",
+    "description": "A lightweight JavaScript library that provides common functionality for any  application.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Cameron Condry",
+            "email": "ccondry2@gmail.com"
+        }
+    ]
+}
