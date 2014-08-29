@@ -1,5 +1,5 @@
 /**
- *    "Help Me" JavaScript Library v0.5.0
+ *    "Help Me" JavaScript Library v0.1.0
  *
  *    Copyright 2014 Cameron Condry
  *    Released under the MIT license
