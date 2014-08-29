@@ -12,7 +12,7 @@ Add the project to your composer file:
 ```
 {
     "require": {
-        "cameroncondry/helpme": "1.0.*"
+        "cbc/helpme": "dev-master"
     }
 }
 ```
