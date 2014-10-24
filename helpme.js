@@ -1,5 +1,5 @@
 /**
- *    "Help Me" JavaScript Library v0.1.0
+ *    "Help Me" JavaScript Library v1.1.0
  *
  *    Copyright 2014 Cameron Condry
  *    Released under the MIT license
@@ -21,6 +21,9 @@
         isBoolean: function (obj) {
             return typeof obj === 'boolean';
         },
+        isPlainObject: function (obj) {
+            return this.isObject(obj) && !obj.nodeType;
+        },
         isString: function (obj) {
             return typeof obj === 'string';
         },
@@ -38,7 +41,7 @@
 
         // delegate to native Array.isArray
         isArray: Array.isArray || function (obj) {
-            return self.toString.call(obj) === '[object Array]';
+            return obj.toString.apply(obj) === '[object Array]';
         },
 
         slice: Array.prototype.slice,
@@ -49,40 +52,44 @@
 
         // extend a given object's properties with object(s)
         extend: function (obj) {
-            var src, copy, options, clone, name, i = 1;
             var target = arguments[0] || {};
-            var length = arguments.length;
 
-            // enforce target as object
             target = this.isObject(target) ? target : {};
 
-            // update all properties to target
-            for (; i < length; i++) {
-                options = arguments[i] || {};
+            this.each(arguments, this.proxy(function (i, arg) {
+                var name, value;
 
-                for (name in options) {
-                    if (options.hasOwnProperty(name)) {
-                        src = target[name];
-                        copy = options[name];
+                if (i === 0 || !this.isObject(arg)) {
+                    return;
+                }
 
-                        // protect against obvious recursion
-                        if (target === copy) continue;
+                for (name in arg) {
+                    value = arg[name];
 
-                        // deep copy if object is encountered
-                        if (copy && this.isObject(copy)) {
-                            // extend the clone instead of original object
-                            clone = src && this.isObject(src) ? src : {};
+                    var targetOption = target[name];
+                    var sourceOption = value;
+                    var clone;
 
-                            target[name] = this.extend(clone, copy);
+                    // prevent obvious recursion
+                    if (value === target) {
+                        return;
+                    }
+
+                    // do not recurse over NodeType objects
+                    if (this.isPlainObject(sourceOption)) {
+                        if (this.isArray(sourceOption)) {
+                            clone = targetOption && this.isArray(targetOption) ? targetOption : [];
+                        } else {
+                            clone = targetOption && this.isObject(targetOption) ? targetOption : {};
                         }
 
-                        // do not copy undefined values
-                        else if (!this.isUndefined(copy)) {
-                            target[name] = copy;
-                        }
+                        target[name] = this.extend(clone, sourceOption);
+                    } else {
+                        target[name] = sourceOption;
                     }
                 }
-            }
+
+            }, this));
 
             return target;
         },
@@ -90,7 +97,10 @@
         // merge two or more objects without altering
         merge: function (obj) {
             var args = [{}];
-            args.push.apply(args, this.slice.call(arguments));
+
+            this.each(arguments, function (i, arg) {
+                args.push(arg);
+            });
 
             return this.extend.apply(this, args);
         },
@@ -98,7 +108,7 @@
         // collection functions
 
         // iterate over a collection with a given callback
-        forEach: function (obj, callback) {
+        each: function (obj, callback) {
             if (!this.isObject(obj) && !this.isArray(obj)) return obj;
 
             var i, length = obj.length;
@@ -120,11 +130,19 @@
 
         // helper functions
 
+        log: function () {
+            console.log(this.slice.call(arguments));
+        },
+        proxy: function (fn, context) {
+            return function () {
+                return fn.apply(context, arguments);
+            }
+        },
         trim: function (value) {
             return this.isString(value) ? value.trim() : value;
         },
-        log: function (value) {
-            console.log(this.slice.call(arguments));
+        triggerError: function (msg) {
+            throw msg || 'Generic Exception Thrown';
         }
     };
 
