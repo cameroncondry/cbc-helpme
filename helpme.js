@@ -1,5 +1,5 @@
 /**
- *    "Help Me" JavaScript Library v1.1.0
+ *    "Help Me" JavaScript Library v1.1.1
  *
  *    Copyright 2014 Cameron Condry
  *    Released under the MIT license
@@ -47,8 +47,6 @@
         slice: Array.prototype.slice,
 
         // object functions
-
-        toString: Object.prototype.toString,
 
         // extend a given object's properties with object(s)
         extend: function (obj) {
