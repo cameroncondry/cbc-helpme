@@ -141,6 +141,19 @@
         },
         triggerError: function (msg) {
             throw msg || 'Generic Exception Thrown';
+        },
+        watchMethod: function (object, method, callback) {
+            var oldMethod = object[method];
+            var self = this;
+
+            if (this.isFunction(oldMethod)) {
+                object[method] = function () {
+                    callback.apply(self);
+                    oldMethod.apply(object, arguments);
+                };
+            }
+
+            return this;
         }
     };
 
