@@ -1,4 +1,4 @@
-describe('Debug watcher', function () {
+describe('Watch Functions', function () {
     var hm = window.hm;
 
     it('hm.watchMethod() does not modify non-function', function () {

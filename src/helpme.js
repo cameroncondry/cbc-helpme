@@ -1,17 +1,20 @@
 /**
- *    "Help Me" JavaScript Library v1.1.1
+ *    "Help Me" JavaScript Library v1.2.0
  *
- *    Copyright 2014 Cameron Condry
+ *    Copyright 2014-2015 Cameron Condry
  *    Released under the MIT license
  */
 
-;(function (window) {
+;(function (window, define) {
     'use strict';
 
-    var hm = function () {};
+    var HelpMe = function () {};
 
-    hm.prototype = {
-        // comparators
+    HelpMe.prototype = {
+        // Comparator Functions
+        // --------------------
+
+        // "undefined" can be redefined
         isUndefined: function (obj) {
             return obj === void 0;
         },
@@ -37,18 +40,29 @@
             return typeof obj === 'function';
         },
 
-        // array functions
+        // Collection Functions
+        // --------------------
 
-        // delegate to native Array.isArray
-        isArray: Array.isArray || function (obj) {
-            return obj.toString.apply(obj) === '[object Array]';
+        each: function (obj, callback) {
+            if (!this.isObject(obj) && !Array.isArray(obj)) return obj;
+
+            var i, length = obj.length;
+
+            if (Array.isArray(obj)) {
+                for (i = 0; i < length; i++) {
+                    callback.call(obj[i], i, obj[i]);
+                }
+            } else {
+                for (i in obj) {
+                    if (obj.hasOwnProperty(i)) {
+                        callback.call(obj[i], i, obj[i]);
+                    }
+                }
+            }
+
+            return obj;
         },
 
-        slice: Array.prototype.slice,
-
-        // object functions
-
-        // extend a given object's properties with object(s)
         extend: function (obj) {
             var target = arguments[0] || {};
 
@@ -75,8 +89,8 @@
 
                     // do not recurse over NodeType objects
                     if (this.isPlainObject(sourceOption)) {
-                        if (this.isArray(sourceOption)) {
-                            clone = targetOption && this.isArray(targetOption) ? targetOption : [];
+                        if (Array.isArray(sourceOption)) {
+                            clone = targetOption && Array.isArray(targetOption) ? targetOption : [];
                         } else {
                             clone = targetOption && this.isObject(targetOption) ? targetOption : {};
                         }
@@ -92,45 +106,9 @@
             return target;
         },
 
-        // merge two or more objects without altering
-        merge: function (obj) {
-            var args = [{}];
+        // Helper Functions
+        // ----------------
 
-            this.each(arguments, function (i, arg) {
-                args.push(arg);
-            });
-
-            return this.extend.apply(this, args);
-        },
-
-        // collection functions
-
-        // iterate over a collection with a given callback
-        each: function (obj, callback) {
-            if (!this.isObject(obj) && !this.isArray(obj)) return obj;
-
-            var i, length = obj.length;
-
-            if (this.isArray(obj)) {
-                for (i = 0; i < length; i++) {
-                    callback.call(obj[i], i, obj[i]);
-                }
-            } else {
-                for (i in obj) {
-                    if (obj.hasOwnProperty(i)) {
-                        callback.call(obj[i], i, obj[i]);
-                    }
-                }
-            }
-
-            return obj;
-        },
-
-        // helper functions
-
-        log: function () {
-            console.log(this.slice.call(arguments));
-        },
         proxy: function (fn, context) {
             return function () {
                 return fn.apply(context, arguments);
@@ -139,24 +117,34 @@
         trim: function (value) {
             return this.isString(value) ? value.trim() : value;
         },
-        triggerError: function (msg) {
-            throw msg || 'Generic Exception Thrown';
-        },
         watchMethod: function (object, method, callback) {
-            var oldMethod = object[method];
-            var self = this;
+            var original = object[method];
 
-            if (this.isFunction(oldMethod)) {
-                object[method] = function () {
-                    callback.apply(self);
-                    oldMethod.apply(object, arguments);
-                };
+            if (this.isFunction(original)) {
+                object[method] = this.proxy(function () {
+                    callback.apply(this);
+                    original.apply(object, arguments);
+                }, this);
             }
 
             return this;
         }
+
     };
 
-    // expose library to global scope
-    window.hm = new hm();
-}(window));
+    // register with globals
+    if (window) {
+        window.hm = new HelpMe();
+    }
+
+    // register with amd
+    if (define) {
+        define('helpme', [], function () {
+            return new HelpMe();
+        });
+    }
+})(
+    typeof window !== 'undefined' ? window : undefined,
+    typeof define !== 'undefined' ? define : undefined
+);
+
