@@ -122,7 +122,7 @@
 
             if (this.isFunction(original)) {
                 object[method] = this.proxy(function () {
-                    callback.apply(this);
+                    callback.apply(this, arguments);
                     original.apply(object, arguments);
                 }, this);
             }

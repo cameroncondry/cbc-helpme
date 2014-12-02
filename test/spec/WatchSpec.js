@@ -29,4 +29,24 @@ describe('Watch Functions', function () {
         expect(callbackCalled).toBe(true);
         expect(methodCalled).toBe(true);
     });
+
+    it('hm.watchMethod() passes original arguments to interceptor', function () {
+        var expectedArguments = [5, 10];
+        var callbackArguments;
+        var methodArguments;
+        var test = {
+            method: function () {
+                methodArguments = Array.prototype.slice.call(arguments, 0);
+            }
+        };
+
+        hm.watchMethod(test, 'method', function () {
+            callbackArguments = Array.prototype.slice.call(arguments, 0);
+        });
+
+        test.method.apply(this, expectedArguments);
+
+        expect(callbackArguments).toEqual(expectedArguments);
+        expect(methodArguments).toEqual(expectedArguments);
+    });
 });
