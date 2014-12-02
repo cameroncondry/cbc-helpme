@@ -129,7 +129,6 @@
 
             return this;
         }
-
     };
 
     // register with globals
