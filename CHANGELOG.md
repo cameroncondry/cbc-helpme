@@ -1,3 +1,10 @@
+# 2014.12.02 - Version 1.2.1
+
+## Features
+- Added more detailed documentation.
+- **hm.watchMethod()** passes the original arguments into the interceptor
+
+
 # 2014.12.01 - Version 1.2.0
 
 ## Features
@@ -15,6 +22,7 @@
     - **hm.merge()**
     - **hm.slice()**
     - **hm.triggerError()**
+
 
 # 2014.10.24 - Version 1.1.0
 

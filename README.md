@@ -30,7 +30,7 @@ Alternatively, you can clone/download the library and install the package manual
 
 ### Comparators
 
-HelpMe provides a slew of common comparators that provide a consistent way for basic data validation in any library.
+HelpMe provides a slew of common comparators that provide a consistent way to add basic data validation to any library.
 
 #### Basic Comparators:
 
@@ -62,3 +62,152 @@ hm.isPlainObject(document.createElement('div'));    // false
 hm.isFunction(function () {});  // true
 hm.isFunction({});              // false
 ```
+
+### Collections
+
+#### hm.each(object, callback)
+
+Iterates over objects and arrays, applying a callback to each iteration. The key and values are passed into the callback as the first and second argument respectively.
+
+```javascript
+var testObject = {
+    name: 'Cameron',
+    request: 'Help Me!'
+};
+
+hm.each(testObject, function (key, value) {
+    console.log(key + ': ' + value);
+});
+
+/* Output:
+ * name: Cameron
+ * request: Help Me!
+ */
+```
+
+#### hm.extend(object1 [, object2, ..., objectN])
+
+Merges the parameters of one or more objects together into the first object.
+
+```javascript
+var object1 = {
+    value1: 'hello',
+    value2: 'world'
+};
+
+var object2 = {
+    value2: 'cameron'
+};
+
+hm.extend(object1, object2);
+
+/* Result:
+ * object1 = {
+ *      value1: 'hello',
+ *      value2: 'cameron'
+ * }
+ *
+ * object2 = {
+ *      value2: 'cameron'
+ * }
+ */
+```
+
+**hm.extend()** will also return the result, allowing for the possibility to make a new object when the first argument is an empty object.
+
+```javascript
+var object1 = {
+    value1: 'hello',
+    value2: 'world'
+};
+
+var object2 = {
+    value2: 'cameron'
+};
+
+var object3 = hm.extend({}, object1, object2);
+
+/* Result:
+ * object1 = {
+ *      value1: 'hello',
+ *      value2: 'world'
+ * }
+ *
+ * object2 = {
+ *      value2: 'cameron'
+ * }
+ *
+ * object3 = {
+ *      value1: 'hello',
+ *      value2: 'cameron'
+ * }
+ */
+```
+
+Finally, **hm.extend()** handles deep merges gracefully by default.
+
+```javascript
+var object1 = {
+    value1: 'hello',
+    deep1: {
+        value2: 'world'
+    }
+};
+
+var object2 = {
+    deep1: {
+        value2: 'cameron'
+    },
+    deep2: {
+        method1: function () {}
+    }
+};
+
+hm.extend(object1, object2);
+
+/* Result:
+ * object1 = {
+ *      value1: 'hello',
+ *      deep1: {
+ *          value2: 'cameron'
+ *      },
+ *      deep2: {
+ *          method1: function () {}
+ *      }
+ * }
+ */
+```
+
+### Helpers
+
+#### hm.trim(string)
+
+Provides a safe string trimming function that will return the original item if a string is not encountered.
+
+```javascript
+var string = hm.trim(' Hello World ');
+
+/* Result:
+ * string = 'Hello World'
+ */
+```
+
+#### hm.proxy(callback, context)
+
+#### hm.watchMethod(object, method, callback)
+
+
+## Contributing
+
+
+## Testing
+
+
+## License
+
+
+
+
+
+
+
