@@ -13,7 +13,7 @@ Create a bower.json file in your project:
 ```json
 {
     "dependencies": {
-        "helpme": "1.2.0"
+        "helpme": "1.3.0"
     }
 }
 ```
@@ -113,7 +113,7 @@ hm.extend(object1, object2);
  */
 ```
 
-**hm.extend()** will also return the result, allowing for the possibility to make a new object when the first argument is an empty object.
+**hm.extend()** will also return the result, allowing for the possibility to make a new object without overwriting any other objects.
 
 ```javascript
 var object1 = {
@@ -199,6 +199,7 @@ var string = hm.trim(' Hello World ');
 
 ## Contributing
 
+coffee install -wcm -o src/js/ src/coffee/
 
 ## Testing
 

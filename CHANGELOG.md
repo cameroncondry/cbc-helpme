@@ -1,3 +1,12 @@
+# 2015.01.20 - Version 1.3.0
+
+## Features
+- Rewritten using [Coffee Script](http://coffeescript.org/)
+
+## Updated
+- **"hm.proxy(fn, context)"** -> **"hm.proxy(context, fn)"**
+
+
 # 2014.12.02 - Version 1.2.1
 
 ## Features
