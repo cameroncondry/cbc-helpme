@@ -76,7 +76,7 @@ class HelpMe
                     else
                         clone = if this.isObject targetOption then targetOption else {}
 
-                    target[name] = this.extend(clone, sourceOption)
+                    target[name] = this.extend clone, sourceOption
                 else
                     target[name] = sourceOption
 
@@ -88,18 +88,15 @@ class HelpMe
 
     proxy: (context, fn) ->
         ->
-            fn.apply(context, arguments)
-
-    trim: (value) ->
-        if this.isString(value) then value.trim() else value
+            fn.apply context, arguments
 
     watchMethod: (obj, method, callback) ->
         original = obj[method]
 
         if this.isFunction original
-            obj[method] =>
-                callback.apply(this, arguments)
-                original.apply(obj, arguments)
+            obj[method] = =>
+                callback.apply this, arguments
+                original.apply obj, arguments
                 return
 
         return this

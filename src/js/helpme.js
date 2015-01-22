@@ -120,24 +120,16 @@
       };
     };
 
-    HelpMe.prototype.trim = function(value) {
-      if (this.isString(value)) {
-        return value.trim();
-      } else {
-        return value;
-      }
-    };
-
     HelpMe.prototype.watchMethod = function(obj, method, callback) {
       var original;
       original = obj[method];
       if (this.isFunction(original)) {
-        obj[method]((function(_this) {
+        obj[method] = (function(_this) {
           return function() {
             callback.apply(_this, arguments);
             original.apply(obj, arguments);
           };
-        })(this));
+        })(this);
       }
       return this;
     };

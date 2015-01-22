@@ -44,6 +44,12 @@ hm.isNumber(42);                // true
 
 #### Advanced Comparators:
 
+"**hm.isArray()**" returns true when provided an array.
+```javascript
+hm.isObject([]);                // true
+hm.isObject(null);              // false
+```
+
 "**hm.isObject()**" returns true when provided an object or array.
 ```javascript
 hm.isObject({});                // true
@@ -71,7 +77,7 @@ Iterates over objects and arrays, applying a callback to each iteration. The key
 
 ```javascript
 var testObject = {
-    name: 'Cameron',
+    name: 'John',
     request: 'Help Me!'
 };
 
@@ -80,7 +86,7 @@ hm.each(testObject, function (key, value) {
 });
 
 /* Output:
- * name: Cameron
+ * name: John
  * request: Help Me!
  */
 ```
@@ -96,7 +102,7 @@ var object1 = {
 };
 
 var object2 = {
-    value2: 'cameron'
+    value2: 'John'
 };
 
 hm.extend(object1, object2);
@@ -104,11 +110,11 @@ hm.extend(object1, object2);
 /* Result:
  * object1 = {
  *      value1: 'hello',
- *      value2: 'cameron'
+ *      value2: 'John'
  * }
  *
  * object2 = {
- *      value2: 'cameron'
+ *      value2: 'John'
  * }
  */
 ```
@@ -122,7 +128,7 @@ var object1 = {
 };
 
 var object2 = {
-    value2: 'cameron'
+    value2: 'John'
 };
 
 var object3 = hm.extend({}, object1, object2);
@@ -134,12 +140,12 @@ var object3 = hm.extend({}, object1, object2);
  * }
  *
  * object2 = {
- *      value2: 'cameron'
+ *      value2: 'John'
  * }
  *
  * object3 = {
  *      value1: 'hello',
- *      value2: 'cameron'
+ *      value2: 'John'
  * }
  */
 ```
@@ -156,7 +162,7 @@ var object1 = {
 
 var object2 = {
     deep1: {
-        value2: 'cameron'
+        value2: 'John'
     },
     deep2: {
         method1: function () {}
@@ -169,7 +175,7 @@ hm.extend(object1, object2);
  * object1 = {
  *      value1: 'hello',
  *      deep1: {
- *          value2: 'cameron'
+ *          value2: 'John'
  *      },
  *      deep2: {
  *          method1: function () {}
@@ -179,18 +185,6 @@ hm.extend(object1, object2);
 ```
 
 ### Helpers
-
-#### hm.trim(string)
-
-Provides a safe string trimming function that will return the original item if a string is not encountered.
-
-```javascript
-var string = hm.trim(' Hello World ');
-
-/* Result:
- * string = 'Hello World'
- */
-```
 
 #### hm.proxy(callback, context)
 
@@ -203,12 +197,12 @@ var string = hm.trim(' Hello World ');
 
 When updating the library source, run the following coffee command to automatically compile the library.
 ```
-coffee -wcm -o src/js/ src/coffee/
+coffee -wc -o src/js/ src/coffee/
 ```
 
 When updated the Jasmine tests, run the following coffee command to automatically compile the tests.
 ```
-coffee -wcm -o test/spec/js/ test/spec/coffee/
+coffee -wc -o test/spec/js/ test/spec/coffee/
 ```
 
 ## Testing
@@ -218,6 +212,27 @@ All functionality is covered by the Jasime JavaScript testing framework. View "t
 
 ## License
 
+The MIT License (MIT)
+
+Copyright (c) 2014-2015 Cameron Condry
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
 
 
 

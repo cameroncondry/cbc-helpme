@@ -1,13 +1,18 @@
 # 2015.01.20 - Version 1.3.0
 
 ## Features
+- Updated outdated documentation
+- Updated contribution methods in documentation
 - Rewritten using [CoffeeScript](http://coffeescript.org/)
 
 ## Updated
 - **"hm.proxy(fn, context)"** -> **"hm.proxy(context, fn)"**
 - **"hm.isPlainObject(obj)"** will return false on arrays
 - CommonSpec has been renamed to ComparatorSpec
+- HelperSpec has been merged with WatcherSpec
 
+## Deprecated
+- Removed **hm.trim(value)** due to no clear benefit in having the method
 
 # 2014.12.02 - Version 1.2.1
 
