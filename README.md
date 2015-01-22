@@ -199,9 +199,21 @@ var string = hm.trim(' Hello World ');
 
 ## Contributing
 
-coffee install -wcm -o src/js/ src/coffee/
+[CoffeeScript](http://coffeescript.org/) and [Jasmine](https://jasmine.github.io/) are required to work on the HelpMe library. CoffeeScript is used to simplify the source and allow for rapid development, which compiles one to one directly down to JavaScript. Jasmine is used as the testing framework for the compiled Javascript source.
+
+When updating the library source, run the following coffee command to automatically compile the library.
+```
+coffee -wcm -o src/js/ src/coffee/
+```
+
+When updated the Jasmine tests, run the following coffee command to automatically compile the tests.
+```
+coffee -wcm -o test/spec/js/ test/spec/coffee/
+```
 
 ## Testing
+
+All functionality is covered by the Jasime JavaScript testing framework. View "test/suite.html" for the test results.
 
 
 ## License

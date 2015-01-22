@@ -46,7 +46,7 @@
     };
 
     HelpMe.prototype.isPlainObject = function(obj) {
-      return this.isObject(obj && !obj.nodeType);
+      return this.isObject(obj) && !this.isArray(obj) && !obj.nodeType;
     };
 
     HelpMe.prototype.isArray = Array.isArray || function(obj) {
@@ -57,13 +57,13 @@
     /* Collection Functions */
 
     HelpMe.prototype.each = function(obj, callback) {
-      var i, length, _i;
-      if (!this.isObject(obj && !this.isArray(obj))) {
+      var i, length, _i, _ref;
+      if (!this.isObject(obj) && !this.isArray(obj)) {
         return obj;
       }
       length = obj.length;
       if (this.isArray(obj)) {
-        for (i = _i = 0; _i <= length; i = _i += 1) {
+        for (i = _i = 0, _ref = length - 1; _i <= _ref; i = _i += 1) {
           callback.call(obj[i], i, obj[i]);
         }
       } else {

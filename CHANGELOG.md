@@ -1,10 +1,12 @@
 # 2015.01.20 - Version 1.3.0
 
 ## Features
-- Rewritten using [Coffee Script](http://coffeescript.org/)
+- Rewritten using [CoffeeScript](http://coffeescript.org/)
 
 ## Updated
 - **"hm.proxy(fn, context)"** -> **"hm.proxy(context, fn)"**
+- **"hm.isPlainObject(obj)"** will return false on arrays
+- CommonSpec has been renamed to ComparatorSpec
 
 
 # 2014.12.02 - Version 1.2.1

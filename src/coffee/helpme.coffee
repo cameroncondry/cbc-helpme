@@ -33,7 +33,7 @@ class HelpMe
         typeof obj == 'object' and !!obj
 
     isPlainObject: (obj) ->
-        this.isObject obj and !obj.nodeType
+        this.isObject(obj) and !this.isArray(obj) and !obj.nodeType
 
     isArray: Array.isArray || (obj) ->
         Object.prototype.toString.call(obj) == '[object Array]'
@@ -41,13 +41,13 @@ class HelpMe
     ### Collection Functions ###
 
     each: (obj, callback) ->
-        if !this.isObject obj and !this.isArray obj
+        if !this.isObject(obj) and !this.isArray(obj)
             return obj
 
         length = obj.length
 
         if this.isArray obj
-            for i in [0..length] by 1
+            for i in [0..(length - 1)] by 1
                 callback.call obj[i], i, obj[i]
         else
             for i of obj
