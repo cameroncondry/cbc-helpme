@@ -4,6 +4,8 @@
  * Released under the MIT license
  */
 (function () {
+  'use strict';
+  
   var HelpMe;
 
   HelpMe = (function () {
