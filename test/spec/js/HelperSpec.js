@@ -3,19 +3,7 @@
   describe('Collection Functions', function() {
     var hm;
     hm = window.hm;
-    it('proxy: define a custom context', function() {
-      var customContext, method;
-      customContext = (function() {
-        function customContext() {}
 
-        return customContext;
-
-      })();
-      method = hm.proxy(customContext, function() {
-        return this;
-      });
-      return expect(method()).toBe(customContext, 'Expected method to return instance of customContext');
-    });
     it('watchMethod: does not modify non-function', function() {
       var test;
       test = {
@@ -24,7 +12,8 @@
       hm.watchMethod(test, 'method', function() {});
       return expect(test.method).toBe(42);
     });
-    return it('watchMethod: intercepts object method', function() {
+    
+    it('watchMethod: intercepts object method', function() {
       var callbackCalled, methodCalled, test;
       callbackCalled = false;
       methodCalled = false;
@@ -41,7 +30,6 @@
       return expect(methodCalled).toBe(true, 'Expected method to be called');
     });
   });
-
 }).call(this);
 
 //# sourceMappingURL=HelperSpec.js.map

@@ -13,7 +13,7 @@ Create a bower.json file in your project:
 ```json
 {
     "dependencies": {
-        "helpme": "1.3.0"
+        "helpme": "1.4.0"
     }
 }
 ```
@@ -186,24 +186,14 @@ hm.extend(object1, object2);
 
 ### Helpers
 
-#### hm.proxy(callback, context)
-
 #### hm.watchMethod(object, method, callback)
+
+TODO
 
 
 ## Contributing
 
-[CoffeeScript](http://coffeescript.org/) and [Jasmine](https://jasmine.github.io/) are required to work on the HelpMe library. CoffeeScript is used to simplify the source and allow for rapid development, which compiles one to one directly down to JavaScript. Jasmine is used as the testing framework for the compiled Javascript source.
-
-When updating the library source, run the following coffee command to automatically compile the library.
-```
-coffee -wc -o src/js/ src/coffee/
-```
-
-When updated the Jasmine tests, run the following coffee command to automatically compile the tests.
-```
-coffee -wc -o test/spec/js/ test/spec/coffee/
-```
+TODO
 
 ## Testing
 
@@ -214,7 +204,7 @@ All functionality is covered by the Jasime JavaScript testing framework. View "t
 
 The MIT License (MIT)
 
-Copyright (c) 2014-2015 Cameron Condry
+Copyright (c) 2014-2016 Cameron Condry
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

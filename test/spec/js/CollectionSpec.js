@@ -3,6 +3,7 @@
   describe('Collection Functions', function() {
     var hm;
     hm = window.hm;
+
     it('each: iterates over 5 items in an array', function() {
       var items, iterations;
       iterations = 0;
@@ -10,47 +11,61 @@
       hm.each(items, function() {
         return iterations++;
       });
+
       return expect(iterations).toBe(5);
     });
+
     it('each: iterates of all items in an object', function() {
       var obj;
+
       obj = {
         name: 'John',
         age: 42
       };
-      return hm.each(obj, function(key, value) {
+
+      return hm.each(obj, function(value, key) {
         expect(['name', 'age'].indexOf(key)).toBeGreaterThan(-1);
         return expect(['John', 42].indexOf(value)).toBeGreaterThan(-1);
       });
     });
+
     it('extend: only modifies first object passed as an argument', function() {
       var obj1, obj2;
+
       obj1 = {
         name: 'John'
       };
       obj2 = {
         age: 42
       };
+
       hm.extend(obj1, obj2);
       expect(obj1.name).toBe('John');
       expect(obj1.age).toBe(42);
       expect(obj2.name).toBe(void 0);
+
       return expect(obj2.age).toBe(42);
     });
+
     it('extend: returns modified object', function() {
       var obj1, obj2, result;
+
       obj1 = {
         name: 'John'
       };
       obj2 = {
         age: 42
       };
+
       result = hm.extend(obj1, obj2);
       expect(result.name).toBe('John');
+
       return expect(result.age).toBe(42);
     });
+
     it('extend: overwrites existing variables', function() {
       var obj1, obj2;
+
       obj1 = {
         name: 'John',
         age: 42
@@ -58,12 +73,16 @@
       obj2 = {
         name: 'Fred'
       };
+
       hm.extend(obj1, obj2);
       expect(obj1.name).toBe('Fred');
+
       return expect(obj1.age).toBe(42);
     });
+
     it('extend: merges objects with nested variables', function() {
       var obj1, obj2;
+
       obj1 = {
         person: {
           name: 'John'
@@ -78,23 +97,29 @@
           age: 42
         }
       };
+
       hm.extend(obj1, obj2);
       expect(obj1.person.name).toBe('Fred');
       expect(obj1.person.age).toBe(42);
+
       return expect(obj1.animal.type).toBe('duck');
     });
-    return it('extend: extended objects are copies and not references', function() {
+
+    it('extend: extended objects are copies and not references', function() {
       var obj1, obj2;
+
       obj1 = {};
       obj2 = {
         name: 'John'
       };
+
       hm.extend(obj1, obj2);
       obj1.name = 'Fred';
+
       return expect(obj2.name).toBe('John');
     });
   });
 
-}).call(this);
+})();
 
 //# sourceMappingURL=CollectionSpec.js.map
